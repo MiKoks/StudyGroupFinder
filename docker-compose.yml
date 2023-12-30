@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  
+  studygroupfinder-db:
+    container_name: studygroupfinder-db
+    image: "postgres:15.2-bullseye"
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      # external:internal
+      - "5449:5432"
+    volumes:
+      - studygroupfinder-db-postgres-volume:/var/lib/postgresql/data
+
+  studygroupfinder-app:
+    container_name: studygroupfinder-app
+    build:
+      dockerfile: Dockerfile
+    ports:
+      # external:internal
+      - "8000:80"
+    
+    depends_on:
+      - studygroupfinder-db
+    
+    environment:
+      - ConnectionStrings:DefaultConnection=Host=host.docker.internal:5449;Database=studygroupfinder-db;Username=postgres;Password=postgres
+      - DataInit:DropDatabase=true
+      - DataInit:MigrateDatabase=true
+      - DataInit:SeedIdentity=true
+      - DataInit:SeedData=true
+
+
+volumes:
+  studygroupfinder-db-postgres-volume:

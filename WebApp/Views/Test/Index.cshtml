@@ -1,0 +1,37 @@
+@model WebApp.ViewModels.StudentUser.Test.TestVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="root">
+    <div class="container root d-flex flex-column">
+        <main role="main" class="pb-3">
+            <br><label for="coursesSelect">@App.Resources.Common.Courses:</label><ul></ul>
+            
+            <div>
+                <table class="CustomClass">
+                    <tbody>
+                @foreach (var item in Model.TestVmLoading!.Courses!) {
+                        <tr>
+                            <td>
+                                <a>
+                                @Html.DisplayFor(modelItem => item.CourseName) - @Html.DisplayFor(modelItem => item.CourseCode)
+                                </a>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                }
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <footer class="border-top footer text-muted fixed-bottom">
+        <div class="container footer">© 2023 - WebApp - <a href="/privacy/footer">Privacy</a></div>
+    </footer>
+    <script>
+    
+    </script>
+</div>

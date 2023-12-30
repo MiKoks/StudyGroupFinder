@@ -1,0 +1,42 @@
+@model WebApp.ViewModels.Admin.GroupMessagesVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>GroupMessages</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GroupMessagesVm.StudyGroupId" class="control-label"></label>
+                <select asp-for="GroupMessagesVm.StudyGroupId" class ="form-control" asp-items="Model.GroupMessagesStudyGroupsSelectList"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupMessagesVm.Message" class="control-label"></label>
+                <input asp-for="GroupMessagesVm.Message" class="form-control" />
+                <span asp-validation-for="GroupMessagesVm.Message" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="GroupMessagesVm.TimeStamp" class="control-label"></label>
+                <input asp-for="GroupMessagesVm.TimeStamp" class="form-control" readonly value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
+                <span asp-validation-for="GroupMessagesVm.TimeStamp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,86 @@
+@using Helpers.Base
+@model WebApp.ViewModels.StudentUser.Test.StudyGroupsPublicVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="root">
+    <div class="container root d-flex flex-column">
+        <main role="main" class="pb-3">
+            <br><label for="StudyGroupsUserSelectList">StudyGroups:</label><ul></ul>
+                <form asp-action="Create">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.AppUserId" class="control-label"></label>
+                        <select asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.AppUserId" class="form-control"
+                                asp-items="@(new SelectList(Model.StudyGroupsPublicVmLoading!.AppUsers, "Id", "FullName", User.GetUserId()))">
+                            <option value="">-- Select User --</option>
+                        </select>
+                        <span asp-validation-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.AppUser" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.GroupName" class="control-label"></label>
+                        <input asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.GroupName" class="form-control" />
+                        <span asp-validation-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.GroupName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.Description" class="control-label"></label>
+                        <input asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.Description" class="form-control" />
+                        <span asp-validation-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.CourseId" class="control-label"></label>
+                        <select asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.CourseId" class="form-control"
+                                asp-items="@(new SelectList(Model.StudyGroupsPublicVmLoading.Courses, "Id", "CourseName"))">
+                            <option value="">-- Select Course --</option>
+                        </select>
+                        <span asp-validation-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.Course" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.MeetingTimes" class="control-label"></label>
+                        <input asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.MeetingTimes" class="form-control" />
+                        <span asp-validation-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.MeetingTimes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.Location" class="control-label"></label>
+                        <input asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.Location" class="form-control" />
+                        <span asp-validation-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.Location" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.MaxGroupSize" class="control-label"></label>
+                        <input asp-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.MaxGroupSize" class="form-control" />
+                        <span asp-validation-for="StudyGroupsPublicVmUpdateData!.StudyGroupsPublic.MaxGroupSize" class="text-danger"></span>
+                    </div>
+                    
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                </form>
+            <div>
+                <table class="CustomClass">
+                    <tbody>
+                @foreach (var item in Model.StudyGroupsPublicVmLoading!.StudyGroupsPublic!) {
+                        <tr>
+                            <td>
+                                <a>
+                                @Html.DisplayFor(modelItem => item.GroupName) - @Html.DisplayFor(modelItem => item.Description) 
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-action="GetStudyGroupsInfo" asp-route-id="@item.Id">Study group info</a>
+                            </td>
+                        </tr>
+                }
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <footer class="border-top footer text-muted fixed-bottom">
+        <div class="container footer">© 2023 - WebApp - <a href="/privacy/footer">Privacy</a></div>
+    </footer>
+    <script>
+    
+    </script>
+</div>

@@ -1,0 +1,46 @@
+@model WebApp.ViewModels.Admin.GroupJoinRequestsVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>GroupJoinRequests</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GroupJoinRequestsVm.StudyGroupsId" class="control-label"></label>
+                <select asp-for="GroupJoinRequestsVm.StudyGroupsId" class ="form-control" asp-items="Model.GroupJoinRequestsStudyGroupsSelectList"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupJoinRequestsVm.SenderUserId" class="control-label"></label>
+                <select asp-for="GroupJoinRequestsVm.SenderUserId" class ="form-control" asp-items="Model.GroupJoinRequestsSenderUserSelectList"></select>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="GroupJoinRequestsVm.RequestStatus" /> @Html.DisplayNameFor(model => Model.GroupJoinRequestsVm.RequestStatus)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupJoinRequestsVm.RequestedAt" class="control-label"></label>
+                <input asp-for="GroupJoinRequestsVm.RequestedAt" class="form-control" readonly value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
+                <span asp-validation-for="GroupJoinRequestsVm.RequestedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
